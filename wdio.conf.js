@@ -65,8 +65,6 @@ export const config = {
         'appium:deviceName': 'emulator-5554',
         'appium:orientation': 'PORTRAIT',
         'appium:automationName': 'UiAutomator2',
-        // The path to the app
-        // 'appium:app': './apps/Android-NativeDemoApp-0.4.0.apk',
         'appium:newCommandTimeout': 240,
         'appium:appPackage': 'com.meditation.heylinda',
         'appium:appActivity': '.MainActivity',
@@ -82,7 +80,7 @@ export const config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'info',
+    logLevel: 'debug',
     //
     // Set specific log levels per logger
     // loggers:
@@ -226,6 +224,7 @@ export const config = {
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
     // beforeTest: function (test, context) {
+    //     driver = browser;
     // },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
