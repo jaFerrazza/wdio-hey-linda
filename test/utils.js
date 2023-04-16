@@ -1,71 +1,125 @@
 
-const horizontalSwipe = async (element_passed)  => {
-    /** 
-     * Swipe horizontally from left to right
-     * Taken from https://webdriver.io/docs/api/appium/#example
-     * 
-     */
-        // Find the element to swipe from
-        const element = await $(element_passed);
+//method to left and right swipe on the screen based on coordinates
+const swipeAction = async (Xcoordinate, Ycoordinate, direction) => {
+  //get device width and height
+  const dimension = await driver.getWindowSize();
+  const deviceHeight = dimension.height;
+  const deviceWidth = dimension.width;
+  console.log("Height x Width of device is: " + deviceHeight + " x " + deviceWidth);
 
-        // Swipe from left to right, starting from the element
-        const screenDimensions = await driver.getWindowRect();
-        const start = { x: element.getLocation().x + element.getSize().width * 0.2, y: element.getLocation().y + element.getSize().height / 2 };
-        const end = { x: element.getLocation().x + element.getSize().width * 0.8, y: element.getLocation().y + element.getSize().height / 2 };
-        await driver.touchPerform([
-        {
-            action: 'press',
-            options: start,
-        },
-        {
-            action: 'wait',
-            options: { ms: 1000 },
-        },
-        {
-            action: 'moveTo',
-            options: end,
-        },
-        {
-            action: 'release',
-        },
-        ]);
-};
+  let startX, startY, endX, endY;
 
-const verticalSwipe = async ()  => {
-    /**
-     * Swipe vertically from top to bottom
-     * Taken from https://webdriver.io/docs/api/appium/#example
-     */
-
-  const element = await $('//android.widget.TextView[@text="ANXIETY"]');
-  await element.waitForExist();
-
-  // Perform the swipe action
-  const screenDimensions = await driver.getWindowRect();
-  const startY = 0.2 * screenDimensions.height;
-  const endY = 0.8 * screenDimensions.height;
-  const swipeDuration = 1000;
-  let currentY = startY;
-  while (currentY < endY) {
-    await driver.touchPerform([
-      {
-        action: 'press',
-        options: { x: screenDimensions.width / 2, y: currentY },
-      },
-      {
-        action: 'wait',
-        options: { ms: swipeDuration },
-      },
-      {
+  switch (direction) {
+    case "Left":
+      console.log("Swipe Right to Left");
+      //define starting and ending X and Y coordinates
+      startX = deviceWidth - Xcoordinate;
+      startY = Ycoordinate;
+      endX = Xcoordinate;
+      endY = Ycoordinate;
+      //perform swipe from right to left
+      await driver.touchPerform([{
+        action: 'longPress',
+        options: {
+          x: startX,
+          y: startY
+        }
+      }, {
         action: 'moveTo',
-        options: { x: screenDimensions.width / 2, y: currentY + 100 },
-      },
-      {
-        action: 'release',
-      },
-    ]);
-    currentY += 100;
-  }
-};
+        options: {
+          x: endX,
+          y: endY
+        }
+      }, {
+        action: 'release'
+      }]);
+      break;
 
-export default {horizontalSwipe, verticalSwipe};
+    case "Right":
+      console.log("Swipe Left to Right");
+      //define starting X and Y coordinates
+      startX = Xcoordinate;
+      startY = Ycoordinate;
+      endX = deviceWidth - Xcoordinate;
+      endY = Ycoordinate;
+      //perform swipe from left to right
+      await driver.touchPerform([{
+        action: 'longPress',
+        options: {
+          x: startX,
+          y: startY
+        }
+      }, {
+        action: 'moveTo',
+        options: {
+          x: endX,
+          y: endY
+        }
+      }, {
+        action: 'release'
+      }]);
+      break;
+
+      case "Down":
+        console.log("Swipe Up to Down");
+        startX = Math.round(deviceWidth / 2);
+        startY = Math.round(deviceHeight * 0.25);
+        endX = Math.round(deviceWidth / 2);
+        endY = Math.round(deviceHeight * 0.75);
+
+        //perform swipe from top to bottom
+        await driver.touchPerform([{
+          action: 'press',
+          options: {
+            x: startX,
+            y: startY
+          }
+        }, {
+          action: 'wait',
+          options: {
+            ms: 1000
+          }
+        }, {
+          action: 'moveTo',
+          options: {
+            x: endX,
+            y: endY
+          }
+        }, {
+          action: 'release'
+        }]);
+        break;
+
+        case "Up":
+        console.log("Swipe Down to Up");
+        startX = Math.round(deviceWidth / 2);
+        startY = Math.round(deviceHeight * 0.75);
+        endX = Math.round(deviceWidth / 2);
+        endY = Math.round(deviceHeight * 0.25);
+
+        //perform swipe from top to bottom
+        await driver.touchPerform([{
+          action: 'press',
+          options: {
+            x: startX,
+            y: startY
+          }
+        }, {
+          action: 'wait',
+          options: {
+            ms: 1000
+          }
+        }, {
+          action: 'moveTo',
+          options: {
+            x: endX,
+            y: endY
+          }
+        }, {
+          action: 'release'
+        }]);
+        break;
+    }
+}
+
+export default swipeAction;

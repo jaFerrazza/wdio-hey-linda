@@ -1,16 +1,12 @@
 import MainScreen from '../screenobjects/main.screen.js';
 import StatsScreen from '../screenobjects/stats.screen.js';
-import * as swipe from '../utils.js';
+import swipeAction from '../utils.js';
 
-describe('Hey Linda App - Stats scenarios', () => {
+describe('Hey Linda App - Stats Screen scenarios', () => {
     before(async () => {
         await MainScreen.waitForStatsBtn();
-        // await MainScreen.clickStatsBtn();
-        // await MainScreen.waitForCurrentStreakText();
-    });
-
-    it.only('should test the horizontal scroll on the Stats screen', async () => {
-        await swipe.default.verticalSwipe();
+        await MainScreen.clickStatsBtn();
+        await MainScreen.waitForCurrentStreakText();
     });
     
     it('should navigate to the Stats screen', async () => {

@@ -5,17 +5,6 @@ class MainScreen {
     /**
      * define selectors using getter methods
      */
-    get inputUsername () {
-        return $('#username');
-    }
-
-    get inputPassword () {
-        return $('#password');
-    }
-
-    get btnSubmit () {
-        return $('button[type="submit"]');
-    }
 
     get statsBtn () {
         return $('//android.widget.TextView[contains(@text, "Stats")]');
@@ -23,6 +12,10 @@ class MainScreen {
 
     get currentStreakText () {
         return $('//android.widget.TextView[contains(@text, "Current Streak")]');
+    }
+
+    get screenTitleDisplayed () {
+        return $('//android.widget.TextView[contains(@resource-id, "themed-text")]');
     }
 
 
