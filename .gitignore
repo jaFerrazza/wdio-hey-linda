@@ -15,3 +15,4 @@ npm-debug.log
 chromeDriver
 .tmp
 /allure-results
+/allure-report

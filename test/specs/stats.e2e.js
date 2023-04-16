@@ -19,7 +19,7 @@ describe('Hey Linda App - Stats Screen scenarios', () => {
         await expect(StatsScreen.manualEntryModal).toBeExisting();
     });
 
-    it('should type in a manual entry modal, typed entry should be recorded in the current streak modal', async () => {
+    it('should type in a manual entry modal, the typed entry should be recorded in the current streak modal', async () => {
         await StatsScreen.setMedidationTime('10');
         await StatsScreen.clickSubmitBtn();
         await expect(StatsScreen.timeMedidated('10')).toHaveTextContaining('10 minutes');
